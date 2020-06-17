@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ - phpMyAdmin XML Dump
+ - version 4.8.4
+ - https://www.phpmyadmin.net
+ -
+ - Hôte : 127.0.0.1:3306
+ - Généré le :  mar. 09 juin 2020 à 14:13
+ - Version du serveur :  5.7.24
+ - Version de PHP :  7.2.14
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+     - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="finou" collation="utf8mb4_unicode_ci" charset="utf8mb4">
+            <pma:table name="quizzanimaux">
+                CREATE TABLE `quizzanimaux` (
+                  `AnimauxId` int(3) NOT NULL AUTO_INCREMENT,
+                  `motFrancais` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+                  `motAnglais` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+                  `motTrouve` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+                  PRIMARY KEY (`AnimauxId`)
+                ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+     - Base de données :  'finou'
+    -->
+    <database name="finou">
+        <!-- Table quizzanimaux -->
+        <table name="quizzanimaux">
+            <column name="AnimauxId">1</column>
+            <column name="motFrancais">ChevalA</column>
+            <column name="motAnglais">HorseA</column>
+            <column name="motTrouve">non</column>
+        </table>
+        <table name="quizzanimaux">
+            <column name="AnimauxId">2</column>
+            <column name="motFrancais">ChienB</column>
+            <column name="motAnglais">DogB</column>
+            <column name="motTrouve">non</column>
+        </table>
+        <table name="quizzanimaux">
+            <column name="AnimauxId">3</column>
+            <column name="motFrancais">Renard</column>
+            <column name="motAnglais">Fox</column>
+            <column name="motTrouve">oui</column>
+        </table>
+        <table name="quizzanimaux">
+            <column name="AnimauxId">4</column>
+            <column name="motFrancais">Chat</column>
+            <column name="motAnglais">Cat</column>
+            <column name="motTrouve">non</column>
+        </table>
+        <table name="quizzanimaux">
+            <column name="AnimauxId">5</column>
+            <column name="motFrancais">Oiseau</column>
+            <column name="motAnglais">Bird</column>
+            <column name="motTrouve">non</column>
+        </table>
+        <table name="quizzanimaux">
+            <column name="AnimauxId">6</column>
+            <column name="motFrancais">Abeille</column>
+            <column name="motAnglais">Bee</column>
+            <column name="motTrouve">non</column>
+        </table>
+    </database>
+</pma_xml_export>
