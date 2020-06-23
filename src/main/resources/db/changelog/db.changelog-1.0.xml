@@ -4,17 +4,17 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-
-<changeSet id="seq_matable-create" author="dev">
-    <createSequence sequenceName="seq_matable" />
+<changeSet id="seq_matable-create5" author="dev">
+    <createSequence sequenceName="seq_matable5" />
 </changeSet>
+
 <changeSet id="matable-create" author="dev">
-<createTable tableName="matableliquibase" remarks="Ma table Liquibase">
-    <column name="id" type="BIGINT" defaultValueSequenceNext="seq_matable">
-        <constraints primaryKey="true" primaryKeyName="pk_matable" />
-    </column>
-    <column name="monChamp1" type="VARCHAR(255)" />
-</createTable>
+    <createTable tableName="matableliquibase" remarks="Ma table Liquibase">
+        <column name="id" type="BIGINT">
+            <constraints primaryKey="true" primaryKeyName="pk_matable" />
+        </column>
+        <column name="monChamp1" type="VARCHAR(255)" />
+    </createTable>
 </changeSet>
 
 </databaseChangeLog>
