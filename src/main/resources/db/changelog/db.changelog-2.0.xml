@@ -5,11 +5,11 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet  author="bertrand"  id="insert-test-2">
-        <insert tableName="matableliquibase">
+    <changeSet  author="bertrand"  id="insert-test-4">
+        <insert tableName="matableliquibase2">
             <column  name="id" type="BIGINT" value="8"/>
-            <column  name="monChamp1"  value="insertion1"/>
-            <column  name="monChamp1"  value="insertion2"/>
+            <column  name="Nom"  value="NomA"/>
+            <column  name="Prenom"  value="PrenomA"/>
         </insert>
     </changeSet>
 
