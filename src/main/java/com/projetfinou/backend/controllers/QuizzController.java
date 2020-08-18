@@ -34,6 +34,17 @@ public class QuizzController {
         return this.quizzService.afficherQuizz(animauxId);
     }
 
+//    @RequestMapping(
+//            method = RequestMethod.PUT,
+//            value = "/{id}")
+//
+//    public Quizz miseAJour(
+//            @PathVariable("id") Integer animauxId,
+//            @RequestBody Quizz quizz) {
+//            System.out.println("Passe dans miseAJour");
+//        return quizzService.modifierQuizz(animauxId, quizz);
+//    }
+
     @RequestMapping(
             method = RequestMethod.GET,
             params = "name")
@@ -43,6 +54,7 @@ public class QuizzController {
         System.out.println("Lancement afficherQuizz2()");
         return this.quizzService.afficherQuizz2 (motFrancais);
     }
+
 
 
     @RequestMapping(

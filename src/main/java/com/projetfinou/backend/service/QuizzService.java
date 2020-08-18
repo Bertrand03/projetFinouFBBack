@@ -1,6 +1,8 @@
 package com.projetfinou.backend.service;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
+//import com.projetfinou.backend.dao.QuizzDaoInterface;
+//import com.projetfinou.backend.mapper.QuizzMapper;
 import com.projetfinou.backend.model.Joueur;
 import com.projetfinou.backend.model.Quizz;
 import com.projetfinou.backend.repository.QuizzRepository;
@@ -15,6 +17,13 @@ import java.util.List;
 public class QuizzService {
     @Autowired
     private QuizzRepository quizzRepository;
+
+//    @Autowired
+//    private QuizzDaoInterface quizzDaoInterface;
+
+//    @Autowired
+//    private QuizzMapper quizzMapper;
+
 
     //********** AFFICHE TOUTES LES VALEURS **********
 
@@ -46,10 +55,20 @@ public class QuizzService {
         }
     }
 
+    public Quizz modifierQuizz(Integer animauxId, Quizz quizz) {
+       System.out.println("Passe dans modifierQuizz");
+        return quizzRepository.save(quizz);
+    }
+
     public Quizz ajouterAnimal(Quizz quizz) {
         System.out.println("Lancement ajouterAnimal()");
         return quizzRepository.save(quizz);
     }
+
+//    @Override
+//    public List<CoursDto> findAllByCategorieId(Integer categorieId) {
+//        return this.coursMapper.map(this.coursDao.findAllByCategorie_CategorieId(categorieId));
+//    }
 
 //    public Quizz ajouterPseudo(Joueur joueur) {
 //        return quizzRepository.save(joueur);

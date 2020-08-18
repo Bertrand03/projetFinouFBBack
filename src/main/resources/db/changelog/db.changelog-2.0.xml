@@ -5,12 +5,41 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet  author="bertrand"  id="insert-test-4">
-        <insert tableName="matableliquibase2">
-            <column  name="id" type="BIGINT" value="8"/>
-            <column  name="Nom"  value="NomA"/>
-            <column  name="Prenom"  value="PrenomA"/>
-        </insert>
-    </changeSet>
+    <!--PARTIE SQL :-->
+
+    <!--<changeSet  author="bertrand"  id="insert-test-5">-->
+        <!--<insert tableName="matableliquibaseA">-->
+            <!--<column  name="id" type="BIGINT" value="9"/>-->
+            <!--<column  name="Nom"  value="NomB"/>-->
+            <!--<column  name="Prenom"  value="PrenomB"/>-->
+        <!--</insert>-->
+    <!--</changeSet>-->
+
+    <!--<changeSet  author="bertrand"  id="insert-test-6">-->
+        <!--<insert tableName="matableliquibase2">-->
+            <!--<column  name="id" type="BIGINT" value="10"/>-->
+            <!--<column  name="Nom"  value="NomC"/>-->
+            <!--<column  name="Prenom"  value="PrenomC"/>-->
+        <!--</insert>-->
+    <!--</changeSet>-->
+
+    <!--<changeSet  author="Bertrand"  id="insert-NomPrenomD">-->
+        <!--<insert tableName="matableliquibaseA">-->
+            <!--<column  name="id" type="BIGINT" value="11"/>-->
+            <!--<column  name="Nom"  value="NomD"/>-->
+            <!--<column  name="Prenom"  value="PrenomD"/>-->
+        <!--</insert>-->
+    <!--</changeSet>-->
+
+    <!--PARTIE POSTGRES :-->
+
+    <!--<changeSet  author="Bertrand"  id="insert_dans_maTablePostgres">-->
+        <!--<insert tableName="maTablePostgres">-->
+            <!--<column  name="id" type="BIGINT" value="01"/>-->
+            <!--<column  name="Nom"  value="NomLiqA"/>-->
+            <!--<column  name="Prenom"  value="PrenomLiqA"/>-->
+            <!--<column  name="Statut"  value="True"/>-->
+        <!--</insert>-->
+    <!--</changeSet>-->
 
 </databaseChangeLog>
