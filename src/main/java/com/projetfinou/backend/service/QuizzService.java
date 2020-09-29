@@ -1,28 +1,18 @@
 package com.projetfinou.backend.service;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-//import com.projetfinou.backend.dao.QuizzDaoInterface;
-//import com.projetfinou.backend.mapper.QuizzMapper;
-import com.projetfinou.backend.model.Joueur;
+
 import com.projetfinou.backend.model.Quizz;
 import com.projetfinou.backend.repository.QuizzRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import javax.persistence.Id;
 import java.util.List;
 
 @Service
 public class QuizzService {
     @Autowired
     private QuizzRepository quizzRepository;
-
-//    @Autowired
-//    private QuizzDaoInterface quizzDaoInterface;
-
-//    @Autowired
-//    private QuizzMapper quizzMapper;
 
 
     //********** AFFICHE TOUTES LES VALEURS **********

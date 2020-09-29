@@ -9,17 +9,12 @@ public class Quizz {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
-    @Column (name = "AnimauxId")
     private Integer animauxId;
 
-    @Column (name = "motFrancais")
     private String motFrancais;
 
-    @Column (name = "motAnglais")
     private String motAnglais;
 
-    @Column (name = "motTrouve")
     private String motTrouve;
 
 

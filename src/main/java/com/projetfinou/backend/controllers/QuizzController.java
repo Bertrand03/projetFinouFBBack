@@ -24,8 +24,7 @@ public class QuizzController {
         return this.quizzService.getSommaire();
     }
 
-    @RequestMapping(
-            method = RequestMethod.GET,
+    @GetMapping(
             value = "/{id}")
 
     public Quizz afficherQuizz(
@@ -34,16 +33,16 @@ public class QuizzController {
         return this.quizzService.afficherQuizz(animauxId);
     }
 
-//    @RequestMapping(
-//            method = RequestMethod.PUT,
-//            value = "/{id}")
-//
-//    public Quizz miseAJour(
-//            @PathVariable("id") Integer animauxId,
-//            @RequestBody Quizz quizz) {
-//            System.out.println("Passe dans miseAJour");
-//        return quizzService.modifierQuizz(animauxId, quizz);
-//    }
+    @PutMapping(
+            value = "/update/{id}")
+
+    public Quizz miseAJour(
+            @PathVariable("id") Integer animauxId,
+            @RequestBody Quizz quizz) {
+            System.out.println("Passe dans miseAJour");
+            System.out.println("animauxId vaut : " + animauxId);
+        return quizzService.modifierQuizz(animauxId, quizz);
+    }
 
     @RequestMapping(
             method = RequestMethod.GET,

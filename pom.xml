@@ -34,11 +34,11 @@
             <scope>runtime</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <version>3.8.9</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.liquibase</groupId>-->
+            <!--<artifactId>liquibase-core</artifactId>-->
+            <!--<version>3.8.9</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>mysql</groupId>
@@ -106,24 +106,24 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-maven-plugin</artifactId>
-            <version>3.8.9</version>
-                <configuration>
-                    <changeLogFile>C:/Program Files/liquibase/dbchangelog.xml</changeLogFile>
-                    <url>jdbc:mysql://localhost:3306/finou</url>
-                    <username>root</username>
-                    <password>root</password>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>update</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+            <!--<groupId>org.liquibase</groupId>-->
+            <!--<artifactId>liquibase-maven-plugin</artifactId>-->
+            <!--<version>3.8.9</version>-->
+                <!--<configuration>-->
+                    <!--<changeLogFile>C:/Program Files/liquibase/dbchangelog.xml</changeLogFile>-->
+                    <!--<url>jdbc:mysql://localhost:3306/finou</url>-->
+                    <!--<username>root</username>-->
+                    <!--<password>root</password>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>update</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 </project>
