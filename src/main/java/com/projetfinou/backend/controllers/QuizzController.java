@@ -49,11 +49,19 @@ public class QuizzController {
             params = "name")
 
     public List<Quizz> afficherQuizz2(
-        @RequestParam(value = "name") String motFrancais) {
+            @RequestParam(value = "name") String motFrancais) {
         System.out.println("Lancement afficherQuizz2()");
         return this.quizzService.afficherQuizz2 (motFrancais);
     }
 
+    @RequestMapping(path = "/trouve-anglais",
+                    produces = "application/json; charset=UTF-8",
+                    method = RequestMethod.GET)
+
+    public List<Quizz> displayAllEnglishQuizz() {
+        System.out.println("Lancement displayAllEnglishQuizz()");
+        return this.quizzService.getSommaire();
+    }
 
 
     @RequestMapping(
