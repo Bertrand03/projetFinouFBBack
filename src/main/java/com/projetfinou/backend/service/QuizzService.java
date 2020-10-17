@@ -1,7 +1,9 @@
 package com.projetfinou.backend.service;
 
 
+import com.projetfinou.backend.model.CategorieQuizz;
 import com.projetfinou.backend.model.Quizz;
+import com.projetfinou.backend.repository.CategorieQuizzRepository;
 import com.projetfinou.backend.repository.QuizzRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,6 @@ import java.util.List;
 public class QuizzService {
     @Autowired
     private QuizzRepository quizzRepository;
-
 
     //********** AFFICHE TOUTES LES VALEURS **********
 
