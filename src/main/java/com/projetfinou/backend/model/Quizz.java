@@ -11,6 +11,8 @@ public class Quizz {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer animauxId;
 
+    private Integer categorieId;
+
     private String motFrancais;
 
     private String motAnglais;
@@ -18,8 +20,9 @@ public class Quizz {
     private String motTrouve;
 
 
-    public Quizz(Integer animauxId, String motFrancais, String motAnglais, String motTrouve) {
+    public Quizz(Integer animauxId, Integer categorieId, String motFrancais, String motAnglais, String motTrouve) {
         this.animauxId = animauxId;
+        this.categorieId = categorieId;
         this.motFrancais = motFrancais;
         this.motAnglais = motAnglais;
         this.motTrouve = motTrouve;
@@ -36,6 +39,10 @@ public class Quizz {
     public void setAnimauxId(Integer animauxId) {
         this.animauxId = animauxId;
     }
+
+    public Integer getCategorieId() { return categorieId; }
+
+    public void setCategorieId(Integer categorieId) { this.categorieId = categorieId; }
 
     public String getMotFrancais() {
         return motFrancais;

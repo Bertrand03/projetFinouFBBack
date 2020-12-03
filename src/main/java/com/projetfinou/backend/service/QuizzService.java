@@ -23,6 +23,14 @@ public class QuizzService {
         return maListe;
     }
 
+    //********** AFFICHE TOUS LES QUIZZ TEMPOREL **********
+
+    public List<Quizz> getQuizzFromCategorieId(Integer categorieId) {
+        System.out.println("Back-end - QuizzSservice - Passe dans getQuizzFromCategorieId");
+        List<Quizz> listQuizz = quizzRepository.findByCategorieId(categorieId);
+        return listQuizz;
+    }
+
     //********** AFFICHE EN FONCTION DE L'ID **********
 
     public Quizz afficherQuizz(Integer animauxId) {
@@ -48,6 +56,11 @@ public class QuizzService {
 
     public Quizz modifierQuizz(Integer animauxId, Quizz quizz) {
        System.out.println("Passe dans modifierQuizz");
+        return quizzRepository.save(quizz);
+    }
+
+    public Quizz resetAllMotTrouveService(Quizz quizz) {
+        System.out.println("Passe dans resetAllMotTrouveService");
         return quizzRepository.save(quizz);
     }
 

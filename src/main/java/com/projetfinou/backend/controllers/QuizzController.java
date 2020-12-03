@@ -33,6 +33,15 @@ public class QuizzController {
         return this.quizzService.afficherQuizz(animauxId);
     }
 
+    @GetMapping(
+            value = "/categorie/{categorieId}")
+
+    public List<Quizz> displayQuizzFromCategorieId(
+            @PathVariable("categorieId") Integer categorieId) {
+        System.out.println("Lancement displayQuizzFromCategorieId()");
+        return this.quizzService.getQuizzFromCategorieId(categorieId);
+    }
+
     @PutMapping(
             value = "/update/{id}")
 
@@ -44,15 +53,25 @@ public class QuizzController {
         return quizzService.modifierQuizz(animauxId, quizz);
     }
 
+    @PutMapping(
+            value = "/update/reset")
+
+    public Quizz resetAllMotTrouve(
+            @RequestBody Quizz quizz) {
+        System.out.println("Passe dans resetAllMotTrouve");
+        return quizzService.resetAllMotTrouveService(quizz);
+    }
+
     @RequestMapping(
             method = RequestMethod.GET,
-            params = "name")
+            value = "name")
 
     public List<Quizz> afficherQuizz2(
             @RequestParam(value = "name") String motFrancais) {
         System.out.println("Lancement afficherQuizz2()");
         return this.quizzService.afficherQuizz2 (motFrancais);
     }
+
 
     @RequestMapping(path = "/trouve-anglais",
                     produces = "application/json; charset=UTF-8",
