@@ -54,7 +54,7 @@ public class QuizzService {
         }
     }
 
-    public Quizz modifierQuizz(Integer animauxId, Quizz quizz) {
+    public Quizz modifierQuizz(Quizz quizz) {
        System.out.println("Passe dans modifierQuizz");
         return quizzRepository.save(quizz);
     }

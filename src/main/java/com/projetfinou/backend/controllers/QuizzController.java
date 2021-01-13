@@ -50,7 +50,7 @@ public class QuizzController {
             @RequestBody Quizz quizz) {
             System.out.println("Passe dans miseAJour");
             System.out.println("animauxId vaut : " + animauxId);
-        return quizzService.modifierQuizz(animauxId, quizz);
+        return quizzService.modifierQuizz(quizz);
     }
 
     @PutMapping(

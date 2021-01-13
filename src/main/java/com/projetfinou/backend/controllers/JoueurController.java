@@ -1,9 +1,7 @@
 package com.projetfinou.backend.controllers;
 
 import com.projetfinou.backend.model.Joueur;
-import com.projetfinou.backend.model.Quizz;
 import com.projetfinou.backend.service.JoueurService;
-import com.projetfinou.backend.service.QuizzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +29,19 @@ public class JoueurController {
 
     public Joueur ajouterJoueur (
             @RequestBody Joueur joueur){
-        System.out.println("Lancement ajouterAnimal()");
+        System.out.println("Lancement ajouterJoueur()");
 
         return joueurService.ajouterJoueur(joueur);
+    }
+
+    @PutMapping(
+            value = "/update/{id}")
+
+    public Joueur miseAJourJoueur(
+            @PathVariable("id") Integer id,
+            @RequestBody Joueur joueur) {
+            System.out.println("Passe dans miseAJourJoueur");
+            System.out.println("joueurId vaut : " + id);
+        return joueurService.modifierJoueur(joueur);
     }
 }

@@ -29,9 +29,10 @@ public class JoueurService {
         return joueurRepository.save(joueur);
     }
 
-//    public Quizz ajouterPseudo(Joueur joueur) {
-//        return quizzRepository.save(joueur);
-//    }
+    public Joueur modifierJoueur(Joueur joueur) {
+        System.out.println("Lancement modifierJoueur");
+        return joueurRepository.save(joueur);
+    }
 
 }
 
