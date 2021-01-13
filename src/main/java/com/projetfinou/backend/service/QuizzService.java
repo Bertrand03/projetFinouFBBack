@@ -69,13 +69,9 @@ public class QuizzService {
         return quizzRepository.save(quizz);
     }
 
-//    @Override
-//    public List<CoursDto> findAllByCategorieId(Integer categorieId) {
-//        return this.coursMapper.map(this.coursDao.findAllByCategorie_CategorieId(categorieId));
-//    }
-
-//    public Quizz ajouterPseudo(Joueur joueur) {
-//        return quizzRepository.save(joueur);
-//    }
+    public void supprimerMotQuizz(Integer animauxId) {
+        System.out.print("passe dans supprimerMotQuizz()");
+        quizzRepository.deleteById(animauxId);
+    }
 
 }

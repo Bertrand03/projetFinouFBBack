@@ -4,6 +4,7 @@ import com.projetfinou.backend.model.Quizz;
 import com.projetfinou.backend.model.Score;
 import com.projetfinou.backend.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

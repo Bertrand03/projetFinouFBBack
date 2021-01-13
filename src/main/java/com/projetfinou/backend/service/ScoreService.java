@@ -34,4 +34,5 @@ public class ScoreService {
         System.out.print("passe dans modifierScoreCategorie()");
         return scoreRepository.save(score);
     }
+
 }

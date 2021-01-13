@@ -4,6 +4,7 @@ package com.projetfinou.backend.controllers;
 import com.projetfinou.backend.model.Quizz;
 import com.projetfinou.backend.service.QuizzService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -93,6 +94,18 @@ public class QuizzController {
 
         return quizzService.ajouterAnimal(quizz);
     }
+
+    @RequestMapping(
+            method = RequestMethod.DELETE,
+            value = "/delete/{animauxId}")
+    @ResponseStatus (value = HttpStatus.NO_CONTENT)
+
+    public @ResponseBody void supprimerMotQuizz(
+            @PathVariable("animauxId") Integer animauxId){
+        System.out.println("Passe dans supprimerMotQuizz()");
+        quizzService.supprimerMotQuizz(animauxId);
+    }
+
 
 }
 
