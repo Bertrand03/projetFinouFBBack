@@ -54,4 +54,14 @@ public class ScoreController {
         System.out.println("categorieId vaut : " + categorieId);
         return scoreService.modifierScoreCategorie(score);
     }
+
+    @GetMapping(
+            value = "/scoreTotal/{joueurId}")
+
+    public Integer getScoreTotalByJoueur(
+            @PathVariable("joueurId") Integer joueurId) {
+        System.out.println("Passe dans getScoreTotalByJoueur");
+        return scoreService.getScoreTotalByJoueurId(joueurId);
+    }
+
 }

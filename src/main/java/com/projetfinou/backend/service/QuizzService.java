@@ -54,6 +54,19 @@ public class QuizzService {
         }
     }
 
+    //********** CHERCHE SI LE MOT EST FRANCAIS **********
+
+    public Quizz getQuizzByMot(String motARetrouver) {
+        System.out.println("Passe dans getQuizzByMotFrancais");
+        Quizz q = quizzRepository.findQuizzByMot(motARetrouver);
+        {
+            if (q == null) {
+                throw new EntityNotFoundException("Le mot avec le nom " + motARetrouver + " n'existe pas");
+            }
+            return q;
+        }
+    }
+
     public Quizz modifierQuizz(Quizz quizz) {
        System.out.println("Passe dans modifierQuizz");
         return quizzRepository.save(quizz);

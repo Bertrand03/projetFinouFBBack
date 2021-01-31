@@ -43,6 +43,18 @@ public class QuizzController {
         return this.quizzService.getQuizzFromCategorieId(categorieId);
     }
 
+    //********** CHERCHE SI LE MOT EST FRANCAIS **********
+
+    @GetMapping(
+            value = "/motARetrouver/{motARetrouver}"
+    )
+
+    public Quizz motFrancaisARetrouver(
+            @PathVariable("motARetrouver") String motARetrouver) {
+        System.out.println("Lancement motFrancaisARetrouver()");
+        return this.quizzService.getQuizzByMot(motARetrouver);
+    }
+
     @PutMapping(
             value = "/update/{id}")
 
@@ -83,7 +95,6 @@ public class QuizzController {
         return this.quizzService.getSommaire();
     }
 
-
     @RequestMapping(
             method = RequestMethod.POST,
             value = "")
@@ -105,7 +116,6 @@ public class QuizzController {
         System.out.println("Passe dans supprimerMotQuizz()");
         quizzService.supprimerMotQuizz(animauxId);
     }
-
 
 }
 

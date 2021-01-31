@@ -35,4 +35,9 @@ public class ScoreService {
         return scoreRepository.save(score);
     }
 
+    public Integer getScoreTotalByJoueurId(Integer joueurId) {
+        System.out.print("passe dans getScoreTotalByJoueurId()");
+        return scoreRepository.getScoreTotalByJoueurIdForAllCategories(joueurId);
+    }
+
 }

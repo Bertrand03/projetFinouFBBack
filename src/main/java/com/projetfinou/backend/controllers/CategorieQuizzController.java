@@ -24,4 +24,21 @@ public class CategorieQuizzController {
         return this.categorieQuizzService.getAllEnglishQuizzService();
     }
 
+    @RequestMapping(path = "/categories-quizzs",
+            produces = "application/json; charset=UTF-8",
+            method = RequestMethod.GET)
+    public List<CategorieQuizz> getAllCategoriesQuizzs() {
+        System.out.println("Lance getAllCategorieQuizz");
+        return categorieQuizzService.getAllCategoriesQuizzsService();
+    }
+
+    @RequestMapping(path = "/categorie-quizz/{categorieId}",
+                    produces = "application/json; charset=UTF-8",
+                    method = RequestMethod.GET)
+
+    public CategorieQuizz getCategorieQuizzById(
+            @PathVariable(value = "categorieId") Integer categorieId) {
+                System.out.println("Lance getCategorieQuizzById()");
+                return this.categorieQuizzService.getCategorieQuizzByIdService(categorieId);
+    }
 }

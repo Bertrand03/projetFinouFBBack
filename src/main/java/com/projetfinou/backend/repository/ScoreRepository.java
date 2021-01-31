@@ -15,5 +15,11 @@ public interface ScoreRepository extends JpaRepository<Score, Integer> {
             @Param("joueurId") Integer joueurId,
             @Param("categorieId") Integer categorieId);
 
+    @Query(
+            value = "SELECT sum(scoreCategorie) FROM Score s WHERE s.joueurId = :joueurId",
+            nativeQuery = true)
+    Integer getScoreTotalByJoueurIdForAllCategories(
+            @Param("joueurId") Integer joueurId);
+
     Score findScoreByCategorieId(Integer categorieId);
 }
