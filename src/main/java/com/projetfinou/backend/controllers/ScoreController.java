@@ -34,12 +34,13 @@ public class ScoreController {
     }
 
     @GetMapping(
-            value = "/scoreByCategorieId/{categorieId}")
+            value = "/scoreByCategorieId/{categorieId}/{joueurId}")
 
-        public Score getScoreByCategorieId(
-                @PathVariable("categorieId") Integer categorieId) {
+        public Score getScoreByCategorieIdAndJoueurId(
+                @PathVariable("categorieId") Integer categorieId,
+                @PathVariable("joueurId") Integer joueurId) {
         System.out.println("lance getScoreByCategorieId()");
-        return this.scoreService.getScoreByCategorieId(categorieId);
+        return this.scoreService.getScoreByCategorieIdAndJoueurId(categorieId, joueurId);
     }
 
     @PutMapping(
@@ -60,7 +61,8 @@ public class ScoreController {
 
     public Integer getScoreTotalByJoueur(
             @PathVariable("joueurId") Integer joueurId) {
-        System.out.println("Passe dans getScoreTotalByJoueur");
+        System.out.println("Passe dans getScoreTotalByJoueur du ScoreController");
+        System.out.println("joueurId vaut : " + joueurId);
         return scoreService.getScoreTotalByJoueurId(joueurId);
     }
 

@@ -24,9 +24,9 @@ public class ScoreService {
         return scoreJoueurCategorie;
     }
 
-    public Score getScoreByCategorieId(Integer categorieId) {
+    public Score getScoreByCategorieIdAndJoueurId(Integer categorieId, Integer joueurId) {
         System.out.print("passe dans getScoreByCategorieId()");
-        Score scoreByCategorieId = scoreRepository.findScoreByCategorieId(categorieId);
+        Score scoreByCategorieId = scoreRepository.findScoreByCategorieIdAndJoueurId(categorieId, joueurId);
         return scoreByCategorieId;
     }
 

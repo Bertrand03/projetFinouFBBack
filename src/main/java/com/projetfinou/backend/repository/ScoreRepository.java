@@ -21,5 +21,5 @@ public interface ScoreRepository extends JpaRepository<Score, Integer> {
     Integer getScoreTotalByJoueurIdForAllCategories(
             @Param("joueurId") Integer joueurId);
 
-    Score findScoreByCategorieId(Integer categorieId);
+    Score findScoreByCategorieIdAndJoueurId(Integer categorieId, Integer joueurId);
 }
