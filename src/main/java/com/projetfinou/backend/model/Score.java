@@ -78,4 +78,5 @@ public class Score {
     public void setNbTentatives(Integer nbTentatives) {
         this.nbTentatives = nbTentatives;
     }
+
 }

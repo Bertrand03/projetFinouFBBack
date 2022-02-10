@@ -19,13 +19,16 @@ public class Quizz {
 
     private String motTrouve;
 
+    private String aide;
 
-    public Quizz(Integer animauxId, Integer categorieId, String motFrancais, String motAnglais, String motTrouve) {
+
+    public Quizz(Integer animauxId, Integer categorieId, String motFrancais, String motAnglais, String motTrouve, String aide) {
         this.animauxId = animauxId;
         this.categorieId = categorieId;
         this.motFrancais = motFrancais;
         this.motAnglais = motAnglais;
         this.motTrouve = motTrouve;
+        this.aide = aide;
     }
 
     public Quizz () {
@@ -66,5 +69,13 @@ public class Quizz {
 
     public void setMotTrouve(String motTrouve) {
         this.motTrouve = motTrouve;
+    }
+
+    public String getAide() {
+        return aide;
+    }
+
+    public void setAide(String aide) {
+        this.aide = aide;
     }
 }

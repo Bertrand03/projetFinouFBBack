@@ -33,7 +33,7 @@ public class QuizzService {
 
     //********** AFFICHE EN FONCTION DE L'ID **********
 
-    public Quizz afficherQuizz(Integer animauxId) {
+    public Quizz getQuizzWordService(Integer animauxId) {
         Quizz a = quizzRepository.findByAnimauxId(animauxId);
         if (a == null) {
             throw new EntityNotFoundException("Le Quizz avec l'id numéro " + animauxId + " n'existe pas");

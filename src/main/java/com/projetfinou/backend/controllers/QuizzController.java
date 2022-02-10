@@ -26,12 +26,12 @@ public class QuizzController {
     }
 
     @GetMapping(
-            value = "/{id}")
+            value = "/wordId/{id}")
 
-    public Quizz afficherQuizz(
+    public Quizz getQuizzWord(
             @PathVariable("id") Integer animauxId) {
-        System.out.println("Lancement afficherQuizz()");
-        return this.quizzService.afficherQuizz(animauxId);
+        System.out.println("Lancement getQuizzWord()");
+        return this.quizzService.getQuizzWordService(animauxId);
     }
 
     @GetMapping(

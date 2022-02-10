@@ -32,6 +32,13 @@ public class ScoreService {
 
     public Score modifierScoreCategorie(Score score) {
         System.out.print("passe dans modifierScoreCategorie()");
+        System.out.print("score VAUT : ");
+        System.out.print(score.getScoreId());
+        System.out.print(score.getJoueurId());
+        System.out.print(score.getCategorieId());
+        System.out.print(score.getScoreGlobal());
+        System.out.print(score.getScoreCategorie());
+        System.out.print(score.getNbTentatives());
         return scoreRepository.save(score);
     }
 

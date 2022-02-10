@@ -53,6 +53,7 @@ public class ScoreController {
         System.out.println("Passe dans miseAJourScoreCategorie");
         System.out.println("joueurId vaut : " + joueurId);
         System.out.println("categorieId vaut : " + categorieId);
+        System.out.println("scoreId vaut : " + score.getScoreId());
         return scoreService.modifierScoreCategorie(score);
     }
 
