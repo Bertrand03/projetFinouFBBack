@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface QuizzRepository extends JpaRepository<Quizz, Integer> {
     List<Quizz> findByMotFrancais(@Param("motFrancais") String motFrancais);
+    List<Quizz> findByMotAnglais(@Param("motAnglais") String motAnglais);
+
     List<Quizz> findByCategorieId(Integer categorieId);
 
     Quizz findByAnimauxId(Integer animauxId);

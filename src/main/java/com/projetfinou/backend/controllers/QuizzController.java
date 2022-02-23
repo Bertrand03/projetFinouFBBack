@@ -25,6 +25,7 @@ public class QuizzController {
         return this.quizzService.getSommaire();
     }
 
+    // GET
     @GetMapping(
             value = "/wordId/{id}")
 
@@ -33,6 +34,14 @@ public class QuizzController {
         System.out.println("Lancement getQuizzWord()");
         return this.quizzService.getQuizzWordService(animauxId);
     }
+
+    @GetMapping(value = "/name/{name}")
+    public List<Quizz>listOfWordByName(
+        @PathVariable("name") String name) {
+        System.out.println("Lancement listOfWordByName()");
+        return this.quizzService.findFrenchOrEnglishWordByName(name);
+    }
+
 
     @GetMapping(
             value = "/categorie/{categorieId}")
@@ -55,6 +64,26 @@ public class QuizzController {
         return this.quizzService.getQuizzByMot(motARetrouver);
     }
 
+    @RequestMapping(path = "/trouve-anglais",
+            produces = "application/json; charset=UTF-8",
+            method = RequestMethod.GET)
+
+    public List<Quizz> displayAllEnglishQuizz() {
+        System.out.println("Lancement displayAllEnglishQuizz()");
+        return this.quizzService.getSommaire();
+    }
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            value = "name")
+
+    public List<Quizz> afficherQuizz2(
+            @RequestParam(value = "name") String motFrancais) {
+        System.out.println("Lancement afficherQuizz2()");
+        return this.quizzService.afficherQuizz2 (motFrancais);
+    }
+
+    // PUT
     @PutMapping(
             value = "/update/{id}")
 
@@ -75,29 +104,10 @@ public class QuizzController {
         return quizzService.resetAllMotTrouveService(quizz);
     }
 
-    @RequestMapping(
-            method = RequestMethod.GET,
-            value = "name")
-
-    public List<Quizz> afficherQuizz2(
-            @RequestParam(value = "name") String motFrancais) {
-        System.out.println("Lancement afficherQuizz2()");
-        return this.quizzService.afficherQuizz2 (motFrancais);
-    }
-
-
-    @RequestMapping(path = "/trouve-anglais",
-                    produces = "application/json; charset=UTF-8",
-                    method = RequestMethod.GET)
-
-    public List<Quizz> displayAllEnglishQuizz() {
-        System.out.println("Lancement displayAllEnglishQuizz()");
-        return this.quizzService.getSommaire();
-    }
-
+    // POST
     @RequestMapping(
             method = RequestMethod.POST,
-            value = "")
+            value = "/addWord")
 
     public Quizz ajouterAnimal (
             @RequestBody Quizz quizz){
@@ -106,6 +116,7 @@ public class QuizzController {
         return quizzService.ajouterAnimal(quizz);
     }
 
+    //DELETE
     @RequestMapping(
             method = RequestMethod.DELETE,
             value = "/delete/{animauxId}")

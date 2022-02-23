@@ -54,6 +54,29 @@ public class QuizzService {
         }
     }
 
+    //********** AFFICHE EN FONCTION DU MOT FRANCAIS OU ANGLAIS **********
+
+    public List<Quizz> findFrenchOrEnglishWordByName(String word) {
+        System.out.println("Passe dans findFrenchOrEnglishWordByName()");
+        List<Quizz> a = quizzRepository.findByMotFrancais(word);
+        List<Quizz> b = quizzRepository.findByMotAnglais(word);
+
+        if (a == null && b == null) {
+            throw new EntityNotFoundException("L'artiste avec le nom " + word + " n'existe pas");
+        }
+
+        for (Quizz quizz: b) {
+            // Contrôle si un mot en Anglais est le même qu'en Français, si oui on ne fait rien
+            if (!quizz.getMotAnglais().equals(quizz.getMotFrancais())) {
+                a.add(quizz);
+                System.out.println("Ajoute " + quizz + " du tableau b dans mon tableau a");
+            }
+        }
+        System.out.println("a vaut " + a);
+
+        return a;
+    }
+
     //********** CHERCHE SI LE MOT EST FRANCAIS **********
 
     public Quizz getQuizzByMot(String motARetrouver) {

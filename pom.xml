@@ -34,6 +34,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!--Pour lancer le script de test-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.4.5</version>
+        </dependency>
+
         <!--<dependency>-->
             <!--<groupId>org.liquibase</groupId>-->
             <!--<artifactId>liquibase-core</artifactId>-->
