@@ -31,6 +31,14 @@ public class QuizzService {
         return listQuizz;
     }
 
+    //********** AFFICHE LE NOMBRE TOTAL DE TENTATIVES PAR CATEGORIE **********
+
+    public Integer getNumberOfTriesByCategorieIdcategorieId(Integer categorieId) {
+        System.out.println("Back-end - QuizzSservice - Passe dans getNumberOfTriesByCategorieIdcategorieId");
+        Integer numberOrTriesByCategoryId = quizzRepository.getNumberOfTriesByCategoryId(categorieId);
+        return numberOrTriesByCategoryId;
+    }
+
     //********** AFFICHE EN FONCTION DE L'ID **********
 
     public Quizz getQuizzWordService(Integer animauxId) {

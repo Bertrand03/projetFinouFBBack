@@ -20,4 +20,11 @@ public interface QuizzRepository extends JpaRepository<Quizz, Integer> {
     Quizz findQuizzByMot (
             @Param("motARetrouver") String motARetrouver
     );
+
+
+    @Query (value = "select sum(tentativeMot) from quizzanimaux where quizzanimaux.categorieId = :categoryId ",
+            nativeQuery = true)
+    Integer getNumberOfTriesByCategoryId (
+            @Param("categoryId") Integer categoryId
+    );
 }

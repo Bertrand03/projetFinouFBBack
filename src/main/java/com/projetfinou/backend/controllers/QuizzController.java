@@ -83,6 +83,16 @@ public class QuizzController {
         return this.quizzService.afficherQuizz2 (motFrancais);
     }
 
+    @GetMapping(
+            value = "/triesByCategoryId/{categorieId}")
+
+    public Integer displayNumberOfTriesByCategorieId(
+            @PathVariable("categorieId") Integer categorieId) {
+        System.out.println("Lancement displayNumberOfTriesByCategorieId()");
+        return this.quizzService.getNumberOfTriesByCategorieIdcategorieId(categorieId);
+    }
+
+
     // PUT
     @PutMapping(
             value = "/update/{id}")
