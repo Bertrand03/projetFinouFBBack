@@ -11,6 +11,7 @@ public interface QuizzRepository extends JpaRepository<Quizz, Integer> {
     List<Quizz> findByMotFrancais(@Param("motFrancais") String motFrancais);
     List<Quizz> findByMotAnglais(@Param("motAnglais") String motAnglais);
 
+
     List<Quizz> findByCategorieId(Integer categorieId);
 
     Quizz findByAnimauxId(Integer animauxId);
@@ -27,4 +28,19 @@ public interface QuizzRepository extends JpaRepository<Quizz, Integer> {
     Integer getNumberOfTriesByCategoryId (
             @Param("categoryId") Integer categoryId
     );
+
+    @Query (value = "select * from quizzanimaux " +
+            "where quizzanimaux.tentativeMot IS NOT NULL " +
+            "and quizzanimaux.tentativeMot > 1",
+            nativeQuery = true)
+    Quizz[] getWordsWithErrors ();
+
+    @Query(value = "select * " +
+            "from quizzanimaux q " +
+            "join score s on q.categorieId = s.categorieId " +
+            "and s.joueurId = :playerSelected " +
+            "and q.categorieId = :categoryQuizzSelected",
+    nativeQuery = true)
+    List<Quizz> findByJoueurIdAndCategoryQuizzId(@Param("playerSelected") Integer playerSelected,
+                                                 @Param("categoryQuizzSelected") Integer categoryQuizzSelected);
 }

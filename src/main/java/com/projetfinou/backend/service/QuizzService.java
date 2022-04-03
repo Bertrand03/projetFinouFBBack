@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class QuizzService {
+public class QuizzService extends IOException {
     @Autowired
     private QuizzRepository quizzRepository;
 
@@ -49,6 +51,16 @@ public class QuizzService {
         return a;
     }
 
+    //********** AFFICHE LES MOTS EN ERREURS **********
+
+    public Quizz[] getQuizzWordWithErrors() {
+        Quizz[] a = quizzRepository.getWordsWithErrors();
+        if (a == null) {
+            throw new EntityNotFoundException("Problème dans la requête de la méthode getWordsWithErrors()");
+        }
+        return a;
+    }
+
     //********** AFFICHE EN FONCTION DU MOT FRANCAIS **********
 
     public List<Quizz> afficherQuizz2(String motFrancais) {
@@ -58,6 +70,19 @@ public class QuizzService {
             if (a == null) {
                 throw new EntityNotFoundException("L'artiste avec le nom " + motFrancais + " n'existe pas");
             }
+            return a;
+        }
+    }
+
+    //********** RECUPERE TOUTES LES DONNEES D'UN QUIZZ **********
+
+    public List<Quizz> getAllQuizzData(Integer playerSelected, Integer categoryQuizzSelected) {
+        System.out.println("Passe dans getAllQuizzData()");
+        List<Quizz> a = quizzRepository.findByJoueurIdAndCategoryQuizzId(playerSelected, categoryQuizzSelected);
+        {
+//            if (a == null) {
+//                throw new EntityNotFoundException("L'artiste avec le nom " + motFrancais + " n'existe pas");
+//            }
             return a;
         }
     }
@@ -108,14 +133,89 @@ public class QuizzService {
         return quizzRepository.save(quizz);
     }
 
+    public List<Quizz> saveQuizz(List<Quizz> listQuizz) {
+//        for (Quizz quizz: listQuizz) {
+//
+//        }
+        try {
+            FileOutputStream fos = new FileOutputStream("monFichier.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(listQuizz);
+            System.out.println("Ecriture de ma liste de quizz ok");
+//            System.out.println(q1.toString());
+//                    return quizzRepository.save(quizz);
+
+            oos.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Quizz ajouterAnimal(Quizz quizz) {
         System.out.println("Lancement ajouterAnimal()");
-        return quizzRepository.save(quizz);
-    }
+        Quizz q1 = new Quizz(500, 0, "tata", "tata", "non", 0 );
+        Quizz q2 = new Quizz(501, 0, "tutu", "tutu", "oui", 2 );
+        // TODO Refaire une méthode pour simplement ajouter un mot quizz en base. Et refaire une autre méthode pour alimenter le fichier sérialisé avec plusieurs quizz
+//        List<Quizz> maListe = new ArrayList<Quizz>();
+//        maListe.add(q1);
+//        maListe.add(q2);
+
+            try {
+                FileOutputStream fos = new FileOutputStream("monFichier.ser");
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(q1);
+                System.out.println("Ecriture ok");
+                System.out.println(q1.toString());
+                oos.writeObject(q2);
+                System.out.println("Ecriture ok");
+                System.out.println(q2.toString());
+//                    return quizzRepository.save(quizz);
+
+                oos.close();
+                fos.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        return null;
+        }
+
+
 
     public void supprimerMotQuizz(Integer animauxId) {
         System.out.print("passe dans supprimerMotQuizz()");
         quizzRepository.deleteById(animauxId);
+    }
+
+    public List<Quizz> deserialize() {
+        System.out.print("passe dans deserialize()");
+        List<Quizz> listQuizz = new ArrayList<Quizz>();
+        try {
+            FileInputStream fis = new FileInputStream("monFichier.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            listQuizz = (List<Quizz>) ois.readObject();
+            System.out.println(listQuizz);
+//            Quizz q = (Quizz) ois.readObject();
+//            System.out.println(q);
+//            maListe.add(q);
+//            q = (Quizz) ois.readObject();
+//            System.out.println(q);
+//            maListe.add(q);
+            ois.close();
+            fis.close();
+//            return listQuizz;
+        } catch (final java.io.IOException e) {
+            e.printStackTrace();
+        } catch (final ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return listQuizz;
     }
 
 }

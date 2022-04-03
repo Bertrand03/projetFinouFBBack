@@ -35,6 +35,14 @@ public class QuizzController {
         return this.quizzService.getQuizzWordService(animauxId);
     }
 
+    @GetMapping(
+            value = "/wordsError")
+
+    public Quizz[] getQuizzWordWithErrors() {
+        System.out.println("Lancement getQuizzWordWithErrors()");
+        return this.quizzService.getQuizzWordWithErrors();
+    }
+
     @GetMapping(value = "/name/{name}")
     public List<Quizz>listOfWordByName(
         @PathVariable("name") String name) {
@@ -50,6 +58,13 @@ public class QuizzController {
             @PathVariable("categorieId") Integer categorieId) {
         System.out.println("Lancement displayQuizzFromCategorieId()");
         return this.quizzService.getQuizzFromCategorieId(categorieId);
+    }
+
+    @GetMapping(value = "/deserialize")
+
+    public List<Quizz> deserialize() {
+        System.out.println("Lancement deserialize()");
+        return this.quizzService.deserialize();
     }
 
     //********** CHERCHE SI LE MOT EST FRANCAIS **********
@@ -81,6 +96,15 @@ public class QuizzController {
             @RequestParam(value = "name") String motFrancais) {
         System.out.println("Lancement afficherQuizz2()");
         return this.quizzService.afficherQuizz2 (motFrancais);
+    }
+
+    @GetMapping(value = "/allQuizzData/{playerSelected}/{categoryQuizzSelected}")
+    public List<Quizz> getAllQuizzData(
+            @PathVariable("playerSelected") Integer playerSelected,
+            @PathVariable("categoryQuizzSelected") Integer categoryQuizzSelected) {
+        System.out.println("Lancement getAllQuizzData()");
+
+        return quizzService.getAllQuizzData(playerSelected, categoryQuizzSelected);
     }
 
     @GetMapping(
@@ -124,6 +148,13 @@ public class QuizzController {
         System.out.println("Lancement ajouterAnimal()");
 
         return quizzService.ajouterAnimal(quizz);
+    }
+
+    @PostMapping(value = "/saveQuizz")
+    public  List<Quizz> saveQuizz (
+            @RequestBody (required = false) List<Quizz> listQuizz) {
+        System.out.println("Lancement saveQuizz()");
+        return quizzService.saveQuizz(listQuizz);
     }
 
     //DELETE

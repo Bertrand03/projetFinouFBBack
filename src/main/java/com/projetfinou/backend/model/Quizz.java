@@ -2,10 +2,11 @@ package com.projetfinou.backend.model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="QuizzAnimaux")
-public class Quizz {
+public class Quizz implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,6 +21,8 @@ public class Quizz {
     private String motTrouve;
 
     private Integer tentativeMot;
+
+    private static final long serialVersionUID = 1L;
 
 
     public Quizz(Integer animauxId, Integer categorieId, String motFrancais, String motAnglais, String motTrouve, Integer tentativeMot) {
@@ -74,4 +77,11 @@ public class Quizz {
     public Integer getTentativeMot() { return tentativeMot; }
 
     public void setTentativeMot(Integer tentativeMot) { this.tentativeMot = tentativeMot; }
+
+    // Redéfinition de la méthode toString() pour pouvoir afficher ce que l'on veut via un System.out.println(x)
+    // La tilde "~" est juste pour faire beau
+    @Override
+    public String toString() {
+        return String.format("Quizz ~ [animauxId: #%d, motAnglais: %s]", animauxId, motAnglais);
+    }
 }
