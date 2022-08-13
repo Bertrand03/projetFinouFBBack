@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,18 +135,16 @@ public class QuizzService extends IOException {
         return quizzRepository.save(quizz);
     }
 
-    public List<Quizz> saveQuizz(List<Quizz> listQuizz) {
-//        for (Quizz quizz: listQuizz) {
-//
-//        }
+    public List<Quizz> saveQuizz(List<Quizz> listQuizz, String quizzName) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("nom du fichier : " + quizzName);
         try {
-            FileOutputStream fos = new FileOutputStream("monFichier.ser");
+//            FileOutputStream fos = new FileOutputStream(dtf.format(now) + ".ser");
+            FileOutputStream fos = new FileOutputStream(quizzName + ".ser");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(listQuizz);
             System.out.println("Ecriture de ma liste de quizz ok");
-//            System.out.println(q1.toString());
-//                    return quizzRepository.save(quizz);
-
             oos.close();
             fos.close();
         } catch (FileNotFoundException e) {
@@ -153,6 +153,27 @@ public class QuizzService extends IOException {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<Quizz> deserialize( String nameFileToDeserialize) {
+        System.out.print("passe dans deserialize()");
+        List<Quizz> listQuizz = new ArrayList<Quizz>();
+        try {
+//            FileInputStream fis = new FileInputStream("monFichier.ser");
+            FileInputStream fis = new FileInputStream(nameFileToDeserialize +".ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            listQuizz = (List<Quizz>) ois.readObject();
+            System.out.println(listQuizz);
+            ois.close();
+            fis.close();
+//            return listQuizz;
+        } catch (final java.io.IOException e) {
+            e.printStackTrace();
+        } catch (final ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return listQuizz;
     }
 
     public Quizz ajouterAnimal(Quizz quizz) {
@@ -192,30 +213,6 @@ public class QuizzService extends IOException {
         quizzRepository.deleteById(animauxId);
     }
 
-    public List<Quizz> deserialize() {
-        System.out.print("passe dans deserialize()");
-        List<Quizz> listQuizz = new ArrayList<Quizz>();
-        try {
-            FileInputStream fis = new FileInputStream("monFichier.ser");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            listQuizz = (List<Quizz>) ois.readObject();
-            System.out.println(listQuizz);
-//            Quizz q = (Quizz) ois.readObject();
-//            System.out.println(q);
-//            maListe.add(q);
-//            q = (Quizz) ois.readObject();
-//            System.out.println(q);
-//            maListe.add(q);
-            ois.close();
-            fis.close();
-//            return listQuizz;
-        } catch (final java.io.IOException e) {
-            e.printStackTrace();
-        } catch (final ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        return listQuizz;
-    }
 
 }

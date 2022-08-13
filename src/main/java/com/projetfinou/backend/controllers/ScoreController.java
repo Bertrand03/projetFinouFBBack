@@ -1,5 +1,6 @@
 package com.projetfinou.backend.controllers;
 
+import com.projetfinou.backend.model.HistoriqueQuizz;
 import com.projetfinou.backend.model.Quizz;
 import com.projetfinou.backend.model.Score;
 import com.projetfinou.backend.service.ScoreService;
@@ -31,6 +32,15 @@ public class ScoreController {
             @PathVariable("joueurId") Integer joueurId, @PathVariable("categorieId") Integer categorieId){
         System.out.println("Lancement getScoreJoueurCategorie()");
         return this.scoreService.getScoreJoueurCategorie(joueurId, categorieId);
+    }
+
+    @GetMapping(
+            value = "/historiqueQuizz/{joueurId}")
+
+    public Object[] getHistoriqueQuizz(
+            @PathVariable("joueurId") Integer joueurId){
+        System.out.println("Lancement getHistoriqueQuizz()");
+        return this.scoreService.getHistoriqueQuizz(joueurId);
     }
 
     @GetMapping(

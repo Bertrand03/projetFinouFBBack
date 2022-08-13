@@ -1,9 +1,12 @@
 package com.projetfinou.backend.repository;
 
+import com.projetfinou.backend.model.HistoriqueQuizz;
 import com.projetfinou.backend.model.Score;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 
 public interface ScoreRepository extends JpaRepository<Score, Integer> {
@@ -22,4 +25,10 @@ public interface ScoreRepository extends JpaRepository<Score, Integer> {
             @Param("joueurId") Integer joueurId);
 
     Score findScoreByCategorieIdAndJoueurId(Integer categorieId, Integer joueurId);
+
+    @Query(
+            value = "SELECT * FROM HistoriqueQuizz hq WHERE hq.scoreId = :scoreId",
+            nativeQuery = true)
+    Object[] findHistoriqueQuizz(
+            @Param("scoreId") Integer scoreId);
 }

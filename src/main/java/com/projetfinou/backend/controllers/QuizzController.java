@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping(value = "/quizzs", method = RequestMethod.GET, produces = "application/json")
 
 public class QuizzController {
+
     @Autowired
     private QuizzService quizzService;
 
@@ -60,11 +61,11 @@ public class QuizzController {
         return this.quizzService.getQuizzFromCategorieId(categorieId);
     }
 
-    @GetMapping(value = "/deserialize")
+    @GetMapping(value = "/deserialize/{nameFileToDeserialize}")
 
-    public List<Quizz> deserialize() {
+    public List<Quizz> deserialize(@PathVariable("nameFileToDeserialize") String nameFileToDeserialize) {
         System.out.println("Lancement deserialize()");
-        return this.quizzService.deserialize();
+        return this.quizzService.deserialize(nameFileToDeserialize);
     }
 
     //********** CHERCHE SI LE MOT EST FRANCAIS **********
@@ -150,11 +151,12 @@ public class QuizzController {
         return quizzService.ajouterAnimal(quizz);
     }
 
-    @PostMapping(value = "/saveQuizz")
+    @PostMapping(value = "/saveQuizz/{quizzName}")
     public  List<Quizz> saveQuizz (
-            @RequestBody (required = false) List<Quizz> listQuizz) {
+        @PathVariable("quizzName") String quizzName,
+        @RequestBody List<Quizz> listQuizz) {
         System.out.println("Lancement saveQuizz()");
-        return quizzService.saveQuizz(listQuizz);
+        return quizzService.saveQuizz(listQuizz, quizzName);
     }
 
     //DELETE

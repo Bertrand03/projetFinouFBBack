@@ -1,5 +1,6 @@
 package com.projetfinou.backend.service;
 
+import com.projetfinou.backend.model.HistoriqueQuizz;
 import com.projetfinou.backend.model.Score;
 import com.projetfinou.backend.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,12 @@ public class ScoreService {
         System.out.println("passe dans scoreRepository, getScore()");
         List<Score> score = scoreRepository.findAll();
         return score;
+    }
+
+    public Object[] getHistoriqueQuizz(Integer joueurId) {
+        System.out.println("passe dans scoreRepository, getHistoriqueQuizz()");
+        Object[] hq = scoreRepository.findHistoriqueQuizz(joueurId);
+        return hq;
     }
 
     public Score getScoreJoueurCategorie(Integer joueurId, Integer categorieId) {
