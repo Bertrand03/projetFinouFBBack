@@ -1,7 +1,9 @@
 package com.projetfinou.backend.repository;
 
+import com.projetfinou.backend.model.HistoriqueQuizz;
 import com.projetfinou.backend.model.Quizz;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -43,4 +45,12 @@ public interface QuizzRepository extends JpaRepository<Quizz, Integer> {
     nativeQuery = true)
     List<Quizz> findByJoueurIdAndCategoryQuizzId(@Param("playerSelected") Integer playerSelected,
                                                  @Param("categoryQuizzSelected") Integer categoryQuizzSelected);
+
+
+    @Query (value = " INSERT INTO historiquequizz VALUES " +
+            "(default, quizzName, dateNow, 0, 1); ", nativeQuery = true)
+    HistoriqueQuizz saveHistoQuizz(
+            @Param("quizzName") String quizzName,
+            @Param("date") String dateNow
+    );
 }

@@ -35,12 +35,11 @@ public class ScoreController {
     }
 
     @GetMapping(
-            value = "/historiqueQuizz/{joueurId}")
+            value = "/historiqueQuizz")
 
-    public Object[] getHistoriqueQuizz(
-            @PathVariable("joueurId") Integer joueurId){
+    public Object[] getHistoriqueQuizz(){
         System.out.println("Lancement getHistoriqueQuizz()");
-        return this.scoreService.getHistoriqueQuizz(joueurId);
+        return this.scoreService.getHistoriqueQuizz();
     }
 
     @GetMapping(

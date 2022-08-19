@@ -19,9 +19,9 @@ public class ScoreService {
         return score;
     }
 
-    public Object[] getHistoriqueQuizz(Integer joueurId) {
+    public Object[] getHistoriqueQuizz() {
         System.out.println("passe dans scoreRepository, getHistoriqueQuizz()");
-        Object[] hq = scoreRepository.findHistoriqueQuizz(joueurId);
+        Object[] hq = scoreRepository.findHistoriqueQuizz();
         return hq;
     }
 

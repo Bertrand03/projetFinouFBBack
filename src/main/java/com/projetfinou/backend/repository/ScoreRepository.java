@@ -27,8 +27,7 @@ public interface ScoreRepository extends JpaRepository<Score, Integer> {
     Score findScoreByCategorieIdAndJoueurId(Integer categorieId, Integer joueurId);
 
     @Query(
-            value = "SELECT * FROM HistoriqueQuizz hq WHERE hq.scoreId = :scoreId",
+            value = "SELECT * FROM HistoriqueQuizz hq WHERE hq.histoQuizzId = (SELECT MAX(histoQuizzId) FROM HistoriqueQuizz)",
             nativeQuery = true)
-    Object[] findHistoriqueQuizz(
-            @Param("scoreId") Integer scoreId);
+    Object[] findHistoriqueQuizz();
 }

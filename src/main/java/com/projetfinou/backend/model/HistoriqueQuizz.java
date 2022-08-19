@@ -23,14 +23,24 @@ public class HistoriqueQuizz {
     @Column (name = "scoreId")
     private Integer scoreId;
 
-    private Integer animauxId;
+    @Lob
+    @Column (name = "sauvegarde")
+    private byte[] blob;
+
+    @Column (name = "joueurId")
+    private Integer joueurId;
+
+    @Column (name = "categorieId")
+    private Integer categorieId;
 
 
-    public HistoriqueQuizz(Integer histoQuizzId, String name, Date date, Integer scoreId){
-        this.histoQuizzId = histoQuizzId;
+    public HistoriqueQuizz(String name, Date date, Integer scoreId, byte[] blob, Integer joueurId, Integer categorieId) {
         this.name = name;
         this.date = date;
         this.scoreId = scoreId;
+        this.blob = blob;
+        this.joueurId = joueurId;
+        this.categorieId = categorieId;
     }
 
     public HistoriqueQuizz() {}
@@ -67,13 +77,21 @@ public class HistoriqueQuizz {
         this.scoreId = scoreId;
     }
 
-    public Integer getAnimauxId() {
-        return animauxId;
+    public byte[] getBlob() {
+        return blob;
     }
 
-    public void setAnimauxId(Integer animauxId) {
-        this.animauxId = animauxId;
+    public void setBlob(byte[] blob) {
+        this.blob = blob;
     }
+
+    public Integer getJoueurId() { return joueurId; }
+
+    public void setJoueurId(Integer joueurId) { this.joueurId = joueurId; }
+
+    public Integer getCategorieId() { return categorieId; }
+
+    public void setCategorieId(Integer categorieId) { this.categorieId = categorieId; }
 }
 
 

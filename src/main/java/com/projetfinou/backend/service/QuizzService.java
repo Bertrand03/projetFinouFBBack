@@ -1,24 +1,28 @@
 package com.projetfinou.backend.service;
 
-
-import com.projetfinou.backend.model.CategorieQuizz;
+import com.projetfinou.backend.model.HistoQuizzObs;
+import com.projetfinou.backend.model.HistoriqueQuizz;
 import com.projetfinou.backend.model.Quizz;
-import com.projetfinou.backend.repository.CategorieQuizzRepository;
+import com.projetfinou.backend.repository.HistoriqueQuizzRepository;
 import com.projetfinou.backend.repository.QuizzRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.SerializationUtils;
 
 import javax.persistence.EntityNotFoundException;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 
 @Service
 public class QuizzService extends IOException {
     @Autowired
     private QuizzRepository quizzRepository;
+
+    @Autowired
+    private HistoriqueQuizzRepository historiqueQuizzRepository;
 
     //********** AFFICHE TOUTES LES VALEURS **********
 
@@ -135,38 +139,121 @@ public class QuizzService extends IOException {
         return quizzRepository.save(quizz);
     }
 
-    public List<Quizz> saveQuizz(List<Quizz> listQuizz, String quizzName) {
+    // Methode 1 :
+    public void saveQuizz(List<Quizz> listQuizz, String quizzName) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
         LocalDateTime now = LocalDateTime.now();
         System.out.println("nom du fichier : " + quizzName);
         try {
-//            FileOutputStream fos = new FileOutputStream(dtf.format(now) + ".ser");
             FileOutputStream fos = new FileOutputStream(quizzName + ".ser");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(listQuizz);
             System.out.println("Ecriture de ma liste de quizz ok");
             oos.close();
             fos.close();
+
+            Date d = new Date();
+
+            // Conversion Objet java en tableau d'octets
+            HistoriqueQuizz hq = new HistoriqueQuizz();
+            byte[] data = SerializationUtils.serialize(listQuizz);
+
+            hq.setHistoQuizzId(100);
+            hq.setName(quizzName);
+            hq.setDate(d);
+            hq.setScoreId(1);
+            hq.setBlob(data);
+
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream os = new ObjectOutputStream(bos);
+            os.writeObject(listQuizz);
+            os.close();
+
+            historiqueQuizzRepository.save(hq);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
-    public List<Quizz> deserialize( String nameFileToDeserialize) {
-        System.out.print("passe dans deserialize()");
+
+    public void saveQuizzV2(Object hqb) {
+        System.out.println("lance saveQuizzV2 vaut : ");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("hqb vaut : ");
+        System.out.println(hqb);
+        ArrayList ar = (ArrayList) hqb;
+
+        System.out.println("get(0) vaut : " + ar.get(0));
+        System.out.println("get(1) vaut : " + ar.get(1));
+        System.out.println("get(2) vaut : " + ar.get(2));
+        System.out.println("get(3) vaut : " + ar.get(3));
+
+        try {
+            Date d = new Date();
+
+            List<Quizz> listQuizzToSave = (ArrayList) ar.get(0);
+            String quizzName = (String) ar.get(1);
+            Integer joueurId = (Integer) ar.get(2);
+            Integer categorieId = (Integer) ar.get(3);
+
+            // Conversion Objet java en tableau d'octets
+            byte[] data = SerializationUtils.serialize(listQuizzToSave);
+            System.out.println("data vaut : ");
+            System.out.println(data);
+            HistoriqueQuizz hq = new HistoriqueQuizz(quizzName, d, 0, data, joueurId, categorieId);
+
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream os = new ObjectOutputStream(bos);
+            os.writeObject(listQuizzToSave);
+            os.close();
+
+            historiqueQuizzRepository.save(hq);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String createDate() {
+        Date d = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(d);
+        int year = calendar.get(Calendar.YEAR);
+        //Add one to month {0 - 11}
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        String date = String.valueOf(year) + "0" + String.valueOf(month) + String.valueOf(day);
+        return date;
+    }
+
+
+    public List<Quizz> deserialize( String nameFileToDeserialize, Integer joueurId) {
+        System.out.println("passe dans deserialize()");
         List<Quizz> listQuizz = new ArrayList<Quizz>();
         try {
-//            FileInputStream fis = new FileInputStream("monFichier.ser");
+            // A utiliser dans le cas où on veut déserialiser un fichier présent sur l'ordinateur du user.
             FileInputStream fis = new FileInputStream(nameFileToDeserialize +".ser");
             ObjectInputStream ois = new ObjectInputStream(fis);
             listQuizz = (List<Quizz>) ois.readObject();
-            System.out.println(listQuizz);
+            for (Quizz quizz : listQuizz) {
+                System.out.println(quizz.getAnimauxId());
+                System.out.println(quizz.getCategorieId());
+                System.out.println(quizz.getMotFrancais());
+                System.out.println(quizz.getMotAnglais());
+                System.out.println(quizz.getMotTrouve());
+                System.out.println(quizz.getTentativeMot());
+                System.out.println("************");
+            }
             ois.close();
             fis.close();
-//            return listQuizz;
+
+            // Récupération de l'historiqueQuizz qui porte le même nom
+            this.retrieveQuizzByHistoriqueQuizz(nameFileToDeserialize, joueurId);
+
         } catch (final java.io.IOException e) {
             e.printStackTrace();
         } catch (final ClassNotFoundException e) {
@@ -174,6 +261,37 @@ public class QuizzService extends IOException {
         }
 
         return listQuizz;
+    }
+
+    public List<Quizz> retrieveQuizzByHistoriqueQuizz(String nameFileToDeserialize, Integer joueurId) {
+        System.out.println("Lance retrieveQuizzByHistoriqueQuizz()");
+        HistoriqueQuizz hq = new HistoriqueQuizz();
+        List<Quizz> deserializedListQuizz = new ArrayList<Quizz>();
+
+        try {
+            // Récupération de l'historiqueQuizz qui porte le même nom
+//            hq = historiqueQuizzRepository.findByName(nameFileToDeserialize);
+//            hq = historiqueQuizzRepository.findByNameAndJoueurId(nameFileToDeserialize, joueurId);
+            hq = historiqueQuizzRepository.findTest(nameFileToDeserialize, joueurId);
+            System.out.println("hq vaut : ");
+            System.out.println("name : " + hq.getName());
+            System.out.println("date : " + hq.getDate());
+            System.out.println("histoQuizzId : " + hq.getHistoQuizzId());
+            System.out.println("blob : " + hq.getBlob());
+            System.out.println("categorieId : " + hq.getCategorieId());
+            System.out.println("joueurId : " + hq.getJoueurId());
+
+            // Déserialise la liste de quizz qui se trouve dans le blob de mon histoQuizz
+            ByteArrayInputStream bis = new ByteArrayInputStream(hq.getBlob());
+            ObjectInputStream ois = new ObjectInputStream(bis);
+            deserializedListQuizz = (List<Quizz>) ois.readObject();
+            System.out.println(deserializedListQuizz);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return deserializedListQuizz;
     }
 
     public Quizz ajouterAnimal(Quizz quizz) {

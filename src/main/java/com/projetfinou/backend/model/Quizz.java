@@ -80,8 +80,9 @@ public class Quizz implements Serializable {
 
     // Redéfinition de la méthode toString() pour pouvoir afficher ce que l'on veut via un System.out.println(x)
     // La tilde "~" est juste pour faire beau
+    // %d pour les Integer ? %s pour les String ?
     @Override
     public String toString() {
-        return String.format("Quizz ~ [animauxId: #%d, motAnglais: %s]", animauxId, motAnglais);
+        return String.format("Quizz ~ [animauxId: #%d, motAnglais: %s, motTrouve: %s]", animauxId, motAnglais, motTrouve);
     }
 }

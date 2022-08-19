@@ -1,12 +1,15 @@
 package com.projetfinou.backend.controllers;
 
 
+import com.projetfinou.backend.model.HistoQuizzObs;
+import com.projetfinou.backend.model.HistoriqueQuizz;
 import com.projetfinou.backend.model.Quizz;
 import com.projetfinou.backend.service.QuizzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin (origins = "http://localhost:4200")
@@ -61,11 +64,22 @@ public class QuizzController {
         return this.quizzService.getQuizzFromCategorieId(categorieId);
     }
 
-    @GetMapping(value = "/deserialize/{nameFileToDeserialize}")
+    @GetMapping(value = "/deserialize/{nameFileToDeserialize}/{joueurId}")
 
-    public List<Quizz> deserialize(@PathVariable("nameFileToDeserialize") String nameFileToDeserialize) {
+    public List<Quizz> deserialize(
+            @PathVariable("nameFileToDeserialize") String nameFileToDeserialize,
+            @PathVariable("joueurId") Integer joueurId) {
         System.out.println("Lancement deserialize()");
-        return this.quizzService.deserialize(nameFileToDeserialize);
+        return this.quizzService.deserialize(nameFileToDeserialize, joueurId);
+    }
+
+    @GetMapping(value = "/deserializeHistoQuizz/{nameFileToDeserialize}/{joueurId}")
+
+    public List<Quizz> deserializeHistoQuizz(
+            @PathVariable("nameFileToDeserialize") String nameFileToDeserialize,
+            @PathVariable("joueurId") Integer joueurId){
+        System.out.println("Lancement deserializeHistoQuizz()");
+        return this.quizzService.retrieveQuizzByHistoriqueQuizz(nameFileToDeserialize, joueurId);
     }
 
     //********** CHERCHE SI LE MOT EST FRANCAIS **********
@@ -151,12 +165,23 @@ public class QuizzController {
         return quizzService.ajouterAnimal(quizz);
     }
 
+    // v1
     @PostMapping(value = "/saveQuizz/{quizzName}")
-    public  List<Quizz> saveQuizz (
-        @PathVariable("quizzName") String quizzName,
-        @RequestBody List<Quizz> listQuizz) {
+    public void saveQuizz (
+            @PathVariable("quizzName") String quizzName,
+            @RequestBody List<Quizz> listQuizz) {
         System.out.println("Lancement saveQuizz()");
-        return quizzService.saveQuizz(listQuizz, quizzName);
+        System.out.println(listQuizz);
+//        quizzService.saveQuizz(listQuizz, quizzName);
+    }
+
+    // v2
+    @PostMapping(value = "/saveQuizz")
+    public void saveQuizzV2 (
+            @RequestBody Object hqb) {
+        System.out.println("Lancement saveQuizzV2 avec hqb");
+        System.out.println(hqb);
+        quizzService.saveQuizzV2(hqb);
     }
 
     //DELETE
