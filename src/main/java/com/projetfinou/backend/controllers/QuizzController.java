@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin (origins = "http://localhost:4200")
@@ -80,6 +79,14 @@ public class QuizzController {
             @PathVariable("joueurId") Integer joueurId){
         System.out.println("Lancement deserializeHistoQuizz()");
         return this.quizzService.retrieveQuizzByHistoriqueQuizz(nameFileToDeserialize, joueurId);
+    }
+
+    @GetMapping(value = "/deserializeHistoQuizz/{histoQuizzId}")
+
+    public List<Quizz> deserializeHistoQuizzByHistoQuizzId(
+            @PathVariable("histoQuizzId") Integer histoQuizzId) {
+        System.out.println("Lancement deserializeHistoQuizzByHistoQuizzId()");
+        return this.quizzService.retrieveQuizzByHistoQuizzId(histoQuizzId);
     }
 
     //********** CHERCHE SI LE MOT EST FRANCAIS **********
@@ -163,16 +170,6 @@ public class QuizzController {
         System.out.println("Lancement ajouterAnimal()");
 
         return quizzService.ajouterAnimal(quizz);
-    }
-
-    // v1
-    @PostMapping(value = "/saveQuizz/{quizzName}")
-    public void saveQuizz (
-            @PathVariable("quizzName") String quizzName,
-            @RequestBody List<Quizz> listQuizz) {
-        System.out.println("Lancement saveQuizz()");
-        System.out.println(listQuizz);
-//        quizzService.saveQuizz(listQuizz, quizzName);
     }
 
     // v2

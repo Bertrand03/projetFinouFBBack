@@ -139,45 +139,6 @@ public class QuizzService extends IOException {
         return quizzRepository.save(quizz);
     }
 
-    // Methode 1 :
-    public void saveQuizz(List<Quizz> listQuizz, String quizzName) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
-        LocalDateTime now = LocalDateTime.now();
-        System.out.println("nom du fichier : " + quizzName);
-        try {
-            FileOutputStream fos = new FileOutputStream(quizzName + ".ser");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(listQuizz);
-            System.out.println("Ecriture de ma liste de quizz ok");
-            oos.close();
-            fos.close();
-
-            Date d = new Date();
-
-            // Conversion Objet java en tableau d'octets
-            HistoriqueQuizz hq = new HistoriqueQuizz();
-            byte[] data = SerializationUtils.serialize(listQuizz);
-
-            hq.setHistoQuizzId(100);
-            hq.setName(quizzName);
-            hq.setDate(d);
-            hq.setScoreId(1);
-            hq.setBlob(data);
-
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream os = new ObjectOutputStream(bos);
-            os.writeObject(listQuizz);
-            os.close();
-
-            historiqueQuizzRepository.save(hq);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public void saveQuizzV2(Object hqb) {
         System.out.println("lance saveQuizzV2 vaut : ");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
@@ -263,6 +224,7 @@ public class QuizzService extends IOException {
         return listQuizz;
     }
 
+    // DESERIALISE AVEC UN NOM DE FICHIER ET UN JOUEUR ID
     public List<Quizz> retrieveQuizzByHistoriqueQuizz(String nameFileToDeserialize, Integer joueurId) {
         System.out.println("Lance retrieveQuizzByHistoriqueQuizz()");
         HistoriqueQuizz hq = new HistoriqueQuizz();
@@ -273,13 +235,48 @@ public class QuizzService extends IOException {
 //            hq = historiqueQuizzRepository.findByName(nameFileToDeserialize);
 //            hq = historiqueQuizzRepository.findByNameAndJoueurId(nameFileToDeserialize, joueurId);
             hq = historiqueQuizzRepository.findTest(nameFileToDeserialize, joueurId);
-            System.out.println("hq vaut : ");
-            System.out.println("name : " + hq.getName());
-            System.out.println("date : " + hq.getDate());
-            System.out.println("histoQuizzId : " + hq.getHistoQuizzId());
-            System.out.println("blob : " + hq.getBlob());
-            System.out.println("categorieId : " + hq.getCategorieId());
-            System.out.println("joueurId : " + hq.getJoueurId());
+//            System.out.println("hq vaut : ");
+//            System.out.println("name : " + hq.getName());
+//            System.out.println("date : " + hq.getDate());
+//            System.out.println("histoQuizzId : " + hq.getHistoQuizzId());
+//            System.out.println("blob : " + hq.getBlob());
+//            System.out.println("categorieId : " + hq.getCategorieId());
+//            System.out.println("joueurId : " + hq.getJoueurId());
+            displayDeserializedHistoQuizzInfos(hq);
+
+            // Déserialise la liste de quizz qui se trouve dans le blob de mon histoQuizz
+            ByteArrayInputStream bis = new ByteArrayInputStream(hq.getBlob());
+            ObjectInputStream ois = new ObjectInputStream(bis);
+            deserializedListQuizz = (List<Quizz>) ois.readObject();
+            System.out.println(deserializedListQuizz);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return deserializedListQuizz;
+    }
+
+
+    // DESERIALISE UN HISTOQUIZZ AVEC UN HISTO QUIZZ ID
+    public List<Quizz> retrieveQuizzByHistoQuizzId(Integer histoQuizzId) {
+        System.out.println("Lance retrieveQuizzByHistoQuizzId()");
+        HistoriqueQuizz hq = new HistoriqueQuizz();
+        List<Quizz> deserializedListQuizz = new ArrayList<Quizz>();
+
+        try {
+            // Récupération de l'historiqueQuizz qui porte le même nom
+//            hq = historiqueQuizzRepository.findByName(nameFileToDeserialize);
+//            hq = historiqueQuizzRepository.findByNameAndJoueurId(nameFileToDeserialize, joueurId);
+            hq = historiqueQuizzRepository.findHistoQuizzByHistoQuizzId(histoQuizzId);
+//            System.out.println("hq vaut : ");
+//            System.out.println("name : " + hq.getName());
+//            System.out.println("date : " + hq.getDate());
+//            System.out.println("histoQuizzId : " + hq.getHistoQuizzId());
+//            System.out.println("blob : " + hq.getBlob());
+//            System.out.println("categorieId : " + hq.getCategorieId());
+//            System.out.println("joueurId : " + hq.getJoueurId());
+            displayDeserializedHistoQuizzInfos(hq);
 
             // Déserialise la liste de quizz qui se trouve dans le blob de mon histoQuizz
             ByteArrayInputStream bis = new ByteArrayInputStream(hq.getBlob());
@@ -329,6 +326,16 @@ public class QuizzService extends IOException {
     public void supprimerMotQuizz(Integer animauxId) {
         System.out.print("passe dans supprimerMotQuizz()");
         quizzRepository.deleteById(animauxId);
+    }
+
+    public void displayDeserializedHistoQuizzInfos (HistoriqueQuizz hq) {
+        System.out.println("hq vaut : ");
+        System.out.println("name : " + hq.getName());
+        System.out.println("date : " + hq.getDate());
+        System.out.println("histoQuizzId : " + hq.getHistoQuizzId());
+        System.out.println("blob : " + hq.getBlob());
+        System.out.println("categorieId : " + hq.getCategorieId());
+        System.out.println("joueurId : " + hq.getJoueurId());
     }
 
 

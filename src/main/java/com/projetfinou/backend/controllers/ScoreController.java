@@ -76,4 +76,6 @@ public class ScoreController {
         return scoreService.getScoreTotalByJoueurId(joueurId);
     }
 
+
+
 }
