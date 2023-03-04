@@ -93,6 +93,21 @@ public class QuizzService extends IOException {
         }
     }
 
+    public List<Quizz> getANewQuizz(Integer categoryQuizzSelected) {
+        System.out.println("Passe dans getANewQuizz()");
+        List<Quizz> a = quizzRepository.getANewQuizz(categoryQuizzSelected);
+        {
+            if (a == null) {
+                throw new EntityNotFoundException("Aucune donnée");
+            }
+            for (Quizz quizz: a) {
+                quizz.setMotTrouve("non");
+                quizz.setTentativeMot(0);
+            }
+            return a;
+        }
+    }
+
     //********** AFFICHE EN FONCTION DU MOT FRANCAIS OU ANGLAIS **********
 
     public List<Quizz> findFrenchOrEnglishWordByName(String word) {

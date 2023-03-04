@@ -7,16 +7,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin (origins = "http://localhost:4200")
+//@CrossOrigin (origins = "http://localhost:4200")
+@CrossOrigin (origins = "*")
 @RestController
 
-@RequestMapping(value = "/joueurs", method = RequestMethod.GET, produces = "application/json")
+//@RequestMapping(value = "/joueurs", method = RequestMethod.GET, produces = "application/json")
+@RequestMapping(value = "http://finouback-env.eba-mjm8m24n.eu-west-3.elasticbeanstalk.com/joueurs", method = RequestMethod.GET, produces = "application/json")
 
 public class JoueurController {
     @Autowired
     private JoueurService joueurService;
 
     @RequestMapping(path = "/", produces = "application/json; charset=UTF-8")
+//    @RequestMapping(path = "http://finouback-env.eba-mjm8m24n.eu-west-3.elasticbeanstalk.com/joueurs", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<Joueur> getSommaire(){
         System.out.println("Lancement getSommaire de Joueurs()");

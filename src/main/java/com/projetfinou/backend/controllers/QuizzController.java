@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin (origins = "http://localhost:4200")
+//@CrossOrigin (origins = "http://localhost:4200")
+@CrossOrigin (origins = "*")
 @RestController
 
 @RequestMapping(value = "/quizzs", method = RequestMethod.GET, produces = "application/json")
@@ -21,16 +22,20 @@ public class QuizzController {
     @Autowired
     private QuizzService quizzService;
 
-    @RequestMapping(path = "/", produces = "application/json; charset=UTF-8")
+//    @RequestMapping(path = "/", produces = "application/json; charset=UTF-8")
+    @RequestMapping(path = "http://finouback-env.eba-mjm8m24n.eu-west-3.elasticbeanstalk.com/sommaire", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public List<Quizz> getSommaire(){
+//    public List<Quizz> getSommaire(){
+    public Integer getSommaire(){
         System.out.println("Lancement getSommaire()");
-        return this.quizzService.getSommaire();
+//        return this.quizzService.getSommaire();
+        return 1;
     }
 
     // GET
     @GetMapping(
             value = "/wordId/{id}")
+//            value = "http://finouback-env.eba-mjm8m24n.eu-west-3.elasticbeanstalk.com/quizzs/wordId/{id}")
 
     public Quizz getQuizzWord(
             @PathVariable("id") Integer animauxId) {
@@ -46,7 +51,8 @@ public class QuizzController {
         return this.quizzService.getQuizzWordWithErrors();
     }
 
-    @GetMapping(value = "/name/{name}")
+//    @GetMapping(value = "/name/{name}")
+    @GetMapping(value = "http://finouback-env.eba-mjm8m24n.eu-west-3.elasticbeanstalk.com/quizzs/name/{name}")
     public List<Quizz>listOfWordByName(
         @PathVariable("name") String name) {
         System.out.println("Lancement listOfWordByName()");
@@ -127,6 +133,13 @@ public class QuizzController {
         System.out.println("Lancement getAllQuizzData()");
 
         return quizzService.getAllQuizzData(playerSelected, categoryQuizzSelected);
+    }
+
+    @GetMapping(value = "/getNewQuizz/{categoryQuizzSelected}")
+    public List<Quizz> getANewQuizz(
+            @PathVariable("categoryQuizzSelected") Integer categoryQuizzSelected) {
+        System.out.println("Lancement getANewQuizz()");
+        return quizzService.getANewQuizz(categoryQuizzSelected);
     }
 
     @GetMapping(

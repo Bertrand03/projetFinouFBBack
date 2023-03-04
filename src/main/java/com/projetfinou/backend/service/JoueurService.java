@@ -20,7 +20,8 @@ public class JoueurService {
 
     public List<Joueur> getSommaire() {
         List<Joueur> maListe = joueurRepository.findAll();
-        return maListe;
+//        return maListe;
+        return (List<Joueur>) new Joueur(0, "toto", "mdp", 10) ;
     }
 
 

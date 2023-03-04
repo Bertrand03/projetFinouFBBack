@@ -46,6 +46,12 @@ public interface QuizzRepository extends JpaRepository<Quizz, Integer> {
     List<Quizz> findByJoueurIdAndCategoryQuizzId(@Param("playerSelected") Integer playerSelected,
                                                  @Param("categoryQuizzSelected") Integer categoryQuizzSelected);
 
+    @Query(value = "select * " +
+            "from quizzanimaux q " +
+            "where categorieId = :categoryQuizzSelected",
+            nativeQuery = true)
+    List<Quizz> getANewQuizz(@Param("categoryQuizzSelected") Integer categoryQuizzSelected);
+
 
     @Query (value = " INSERT INTO historiquequizz VALUES " +
             "(default, quizzName, dateNow, 0, 1); ", nativeQuery = true)
