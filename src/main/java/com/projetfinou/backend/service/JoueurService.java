@@ -20,16 +20,8 @@ public class JoueurService {
     //********** AFFICHE TOUTES LES VALEURS **********
 
     public List<Joueur> getSommaire() {
-        //List<Joueur> maListe = joueurRepository.findAll();
-//        return maListe;
-        Joueur a = new Joueur(98, "toto", "mdp1", 10) ;
-        Joueur b = new Joueur(99, "tata", "mdp2", 20) ;
-        Joueur c = new Joueur(1, "p1", "p1", 8) ;
-        List<Joueur> listeJoueurs = new ArrayList<Joueur>();
-        listeJoueurs.add(a);
-        listeJoueurs.add(b);
-        listeJoueurs.add(c);
-        return listeJoueurs ;
+        List<Joueur> maListe = joueurRepository.findAll();
+        return maListe;
     }
 
 

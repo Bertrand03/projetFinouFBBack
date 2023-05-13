@@ -4,7 +4,7 @@ package com.projetfinou.backend.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Score", schema = "finoudb")
+@Table(name = "Score")
 public class Score {
 
     @Id
