@@ -78,12 +78,14 @@ public class QuizzController {
             @PathVariable("nameFileToDeserialize") String nameFileToDeserialize,
             @PathVariable("joueurId") Integer joueurId){
         System.out.println("Lancement deserializeHistoQuizz()");
+        System.out.println("nameFileToDeserialize vaut : " + nameFileToDeserialize);
+        System.out.println("joueurId vaut : " + joueurId);
         return this.quizzService.retrieveQuizzByHistoriqueQuizz(nameFileToDeserialize, joueurId);
     }
 
     @GetMapping(value = "/deserializeHistoQuizz/{histoQuizzId}")
 
-    public List<Quizz> deserializeHistoQuizzByHistoQuizzId(
+    public List<Object> deserializeHistoQuizzByHistoQuizzId(
             @PathVariable("histoQuizzId") Integer histoQuizzId) {
         System.out.println("Lancement deserializeHistoQuizzByHistoQuizzId()");
         return this.quizzService.retrieveQuizzByHistoQuizzId(histoQuizzId);
